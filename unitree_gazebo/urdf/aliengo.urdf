@@ -31,254 +31,8 @@
   <material name="white">
     <color rgba="1.0 1.0 1.0 1.0"/>
   </material>
-  <!-- ros_control plugin -->
-  <gazebo>
-    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>/aliengo_gazebo</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-  </gazebo>
-  <!-- Show the trajectory of trunk center. -->
-  <gazebo>
-    <plugin filename="libLinkPlot3DPlugin.so" name="3dplot">
-      <frequency>10</frequency>
-      <plot>
-        <link>base</link>
-        <pose>0 0 0 0 0 0</pose>
-        <material>Gazebo/Yellow</material>
-      </plot>
-    </plugin>
-  </gazebo>
-  <!-- Show the trajectory of foot. You can add another trajectory about another foot. -->
-  <!-- <gazebo>
-        <plugin name="3dplot" filename="libLinkPlot3DPlugin.so">
-            <frequency>100</frequency>
-            <plot>
-                <link>FL_foot</link>
-                <pose>0 0 0 0 0 0</pose>
-                <material>Gazebo/Green</material>
-            </plot>
-        </plugin>
-    </gazebo> -->
-  <gazebo>
-    <plugin filename="libgazebo_ros_force.so" name="gazebo_ros_force">
-      <bodyName>trunk</bodyName>
-      <topicName>/apply_force/trunk</topicName>
-    </plugin>
-  </gazebo>
-  <gazebo reference="imu_link">
-    <gravity>true</gravity>
-    <sensor name="imu_sensor" type="imu">
-      <always_on>true</always_on>
-      <update_rate>1000</update_rate>
-      <visualize>true</visualize>
-      <topic>__default_topic__</topic>
-      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-        <topicName>trunk_imu</topicName>
-        <bodyName>imu_link</bodyName>
-        <updateRateHZ>1000.0</updateRateHZ>
-        <gaussianNoise>0.0</gaussianNoise>
-        <xyzOffset>0 0 0</xyzOffset>
-        <rpyOffset>0 0 0</rpyOffset>
-        <frameName>imu_link</frameName>
-      </plugin>
-      <pose>0 0 0 0 0 0</pose>
-    </sensor>
-  </gazebo>
   <!-- Foot contacts. -->
-  <gazebo reference="FR_calf">
-    <sensor name="FR_foot_contact" type="contact">
-      <update_rate>100</update_rate>
-      <plugin filename="libunitreeFootContactPlugin.so" name="contactPlugin"/>
-      <contact>
-        <collision>FR_calf_fixed_joint_lump__FR_foot_collision_1</collision>
-      </contact>
-    </sensor>
-  </gazebo>
-  <gazebo reference="FL_calf">
-    <sensor name="FL_foot_contact" type="contact">
-      <update_rate>100</update_rate>
-      <plugin filename="libunitreeFootContactPlugin.so" name="contactPlugin"/>
-      <contact>
-        <collision>FL_calf_fixed_joint_lump__FL_foot_collision_1</collision>
-      </contact>
-    </sensor>
-  </gazebo>
-  <gazebo reference="RR_calf">
-    <sensor name="RR_foot_contact" type="contact">
-      <update_rate>100</update_rate>
-      <plugin filename="libunitreeFootContactPlugin.so" name="contactPlugin"/>
-      <contact>
-        <collision>RR_calf_fixed_joint_lump__RR_foot_collision_1</collision>
-      </contact>
-    </sensor>
-  </gazebo>
-  <gazebo reference="RL_calf">
-    <sensor name="RL_foot_contact" type="contact">
-      <update_rate>100</update_rate>
-      <plugin filename="libunitreeFootContactPlugin.so" name="contactPlugin"/>
-      <contact>
-        <collision>RL_calf_fixed_joint_lump__RL_foot_collision_1</collision>
-      </contact>
-    </sensor>
-  </gazebo>
-  <!-- Visualization of Foot contacts. -->
-  <gazebo reference="FR_foot">
-    <visual>
-      <plugin filename="libunitreeDrawForcePlugin.so" name="drawForcePlugin">
-        <topicName>FR_foot_contact</topicName>
-      </plugin>
-    </visual>
-  </gazebo>
-  <gazebo reference="FL_foot">
-    <visual>
-      <plugin filename="libunitreeDrawForcePlugin.so" name="drawForcePlugin">
-        <topicName>FL_foot_contact</topicName>
-      </plugin>
-    </visual>
-  </gazebo>
-  <gazebo reference="RR_foot">
-    <visual>
-      <plugin filename="libunitreeDrawForcePlugin.so" name="drawForcePlugin">
-        <topicName>RR_foot_contact</topicName>
-      </plugin>
-    </visual>
-  </gazebo>
-  <gazebo reference="RL_foot">
-    <visual>
-      <plugin filename="libunitreeDrawForcePlugin.so" name="drawForcePlugin">
-        <topicName>RL_foot_contact</topicName>
-      </plugin>
-    </visual>
-  </gazebo>
-  <gazebo reference="base">
-    <material>Gazebo/Green</material>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="trunk">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <gazebo reference="stick_link">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/White</material>
-  </gazebo>
-  <gazebo reference="imu_link">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/Red</material>
-  </gazebo>
-  <!-- FL leg -->
-  <gazebo reference="FL_hip">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/DarkGrey</material>
-  </gazebo>
-  <gazebo reference="FL_thigh">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <gazebo reference="FL_calf">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-  </gazebo>
-  <gazebo reference="FL_foot">
-    <mu1>0.6</mu1>
-    <mu2>0.6</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <!-- FR leg -->
-  <gazebo reference="FR_hip">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/DarkGrey</material>
-  </gazebo>
-  <gazebo reference="FR_thigh">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <gazebo reference="FR_calf">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-  </gazebo>
-  <gazebo reference="FR_foot">
-    <mu1>0.6</mu1>
-    <mu2>0.6</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <!-- RL leg -->
-  <gazebo reference="RL_hip">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/DarkGrey</material>
-  </gazebo>
-  <gazebo reference="RL_thigh">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <gazebo reference="RL_calf">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-  </gazebo>
-  <gazebo reference="RL_foot">
-    <mu1>0.6</mu1>
-    <mu2>0.6</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <!-- RR leg -->
-  <gazebo reference="RR_hip">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <material>Gazebo/DarkGrey</material>
-  </gazebo>
-  <gazebo reference="RR_thigh">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
-  <gazebo reference="RR_calf">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
-    <self_collide>1</self_collide>
-  </gazebo>
-  <gazebo reference="RR_foot">
-    <mu1>0.6</mu1>
-    <mu2>0.6</mu2>
-    <self_collide>1</self_collide>
-    <material>Gazebo/DarkGrey</material>
-    <kp value="1000000.0"/>
-    <kd value="1.0"/>
-  </gazebo>
+
   <!-- Rotor related joint and link is only for demonstrate location. -->
   <!-- Actually, the rotor will rotate and the joint is not fixed. Reduction ratio should be considered. -->
   <!-- Debug mode will hung up the robot, use "true" or "false" to switch it. -->
@@ -307,7 +61,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/trunk.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/trunk.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -320,7 +74,7 @@
     <!-- <collision>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://aliengo_description/meshes/trunk.dae" scale="1 1 1"/>
+                <mesh filename="package://unitree_gazebo/meshes/trunk.dae" scale="1 1 1"/>
             </geometry>
         </collision> -->
     <inertial>
@@ -371,7 +125,7 @@
     <visual>
       <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/hip.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -424,7 +178,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/thigh_mirror.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/thigh_mirror.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -477,7 +231,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -584,7 +338,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/hip.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -637,7 +391,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/thigh.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/thigh.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -690,7 +444,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -797,7 +551,7 @@
     <visual>
       <origin rpy="3.141592653589793 3.141592653589793 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/hip.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -850,7 +604,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/thigh_mirror.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/thigh_mirror.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -903,7 +657,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -1010,7 +764,7 @@
     <visual>
       <origin rpy="0 3.141592653589793 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/hip.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -1063,7 +817,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/thigh.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/thigh.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -1116,7 +870,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://aliengo_description/meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://unitree_gazebo/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="orange"/>
     </visual>

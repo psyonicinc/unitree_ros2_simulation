@@ -46,7 +46,7 @@ Visualization Manager:
       Name: TF
       Value: true
   Global Options:
-    Fixed Frame: waist
+    Fixed Frame: trunk
     Frame Rate: 30
   Name: root
   Tools:
