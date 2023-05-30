@@ -9,7 +9,7 @@ from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
 """
-rviz display for robot
+rviz display for aliengo robot
 """
 
 def generate_launch_description():
