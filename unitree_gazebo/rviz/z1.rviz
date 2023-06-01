@@ -47,7 +47,7 @@ Visualization Manager:
       Value: true
   Global Options:
     Fixed Frame: world
-    Frame Rate: 30
+    Frame Rate: 60
   Name: root
   Tools:
     - Class: rviz_default_plugins/MoveCamera
