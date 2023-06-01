@@ -15,7 +15,7 @@ rviz display for aliengo robot
 def generate_launch_description():
     urdf_tutorial_path = get_package_share_path('unitree_gazebo')
     default_model_path = urdf_tutorial_path / 'urdf/aliengo.urdf'
-    default_rviz_config_path = urdf_tutorial_path / 'rviz/urdf.rviz'
+    default_rviz_config_path = urdf_tutorial_path / 'rviz/aliengo.rviz'
 
     gui_arg = DeclareLaunchArgument(name='gui', default_value='true', choices=['true', 'false'],
                                     description='Flag to enable joint_state_publisher_gui')
