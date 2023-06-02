@@ -1,12 +1,7 @@
 controller_manager:
   ros__parameters:
-    update_rate: 1000 #..or publish_rate?
-
     joint_effort_controller:
       type: effort_controllers/JointGroupEffortController
-
-    joint_position_controller:
-      type: position_controllers/JointGroupPositionController
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -16,8 +11,10 @@ joint_effort_controller:
     joints:
       - joint1
       - joint2
-      - waist_thighL
-      - thighL_shankL
+      - joint3
+      - joint4
+      - joint5
+      - joint6
     
     command_interfaces:
       - effort
@@ -28,46 +25,32 @@ joint_effort_controller:
       - effort
 
     gains:
-      waist_thighR:
-        p: 1
-        i: 0.001
-        d: 0.065
+      joint1:
+        p: 300.0
+        i: 0.00
+        d: 5.0
 
-      waist_thighL:
-        p: 1
-        i: 0.001
-        d: 0.065
+      joint2:
+        p: 300.0
+        i: 0.00
+        d: 5.0
 
-      thighR_shankR:
-        p: 1
-        i: 0.001
-        d: 0.065
+      joint3:
+        p: 300.0
+        i: 0.00
+        d: 5.0
 
-      thighL_shankL:
-        p: 1
-        i: 0.001
-        d: 0.065
-
-joint_position_controller:
-  ros__parameters:
-    joints:
-      - boom_waist
-      - outer_ring_inner_ring
-
-    command_interfaces:
-      - position
-    
-    state_interfaces:
-      - position
-      - velocity
-
-    gains:
-      boom_waist:
-        p: 1
-        i: 0.001
-        d: 0.065
-
-      outer_ring_inner_ring:
-        p: 1
-        i: 0.001
-        d: 0.065
+      joint4:
+        p: 300.0
+        i: 0.00
+        d: 5.0
+      
+      joint5:
+        p: 300.0
+        i: 0.00
+        d: 5.0
+      
+      joint6:
+        p: 300.0
+        i: 0.00
+        d: 5.0

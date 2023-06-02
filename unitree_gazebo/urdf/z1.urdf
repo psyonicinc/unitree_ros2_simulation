@@ -291,6 +291,77 @@
     </actuator>
   </transmission>
 
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+
+    <joint name="joint1">
+      <command_interface name="effort">
+        <param name="min">-30</param>
+        <param name="max">30</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint2">
+      <command_interface name="effort">
+        <param name="min">-60</param>
+        <param name="max">60</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint3">
+      <command_interface name="effort">
+        <param name="min">-30</param>
+        <param name="max">30</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint4">
+      <command_interface name="effort">
+        <param name="min">-30</param>
+        <param name="max">30</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint5">
+      <command_interface name="effort">
+        <param name="min">-30</param>
+        <param name="max">30</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="joint6">
+      <command_interface name="effort">
+        <param name="min">-30</param>
+        <param name="max">30</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="effort"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <parameters>$(find unitree_gazebo)/config/z1_effort_control.yaml</parameters>
+    </plugin>
+  </gazebo>
 
   <gazebo reference="link00">
     <material >Gazebo/Black</material>
