@@ -31,7 +31,7 @@ def generate_launch_description():
     else:
         os.environ['GAZEBO_PLUGIN_PATH'] = install_dir + '/lib'
 
-    default_model_path = unitree_gazebo_path / 'urdf/z1_effort.urdf'
+    default_model_path = unitree_gazebo_path / 'urdf/z1_position.urdf'
     model_arg = DeclareLaunchArgument(name='model', default_value=str(default_model_path), description="absolute path to robot urdf file")
 
     robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
@@ -56,8 +56,8 @@ def generate_launch_description():
         output='screen'
     )
 
-    load_joint_effort_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_effort_controller'],
+    load_joint_position_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_position_controller'],
         output='screen'
     )
 
@@ -90,7 +90,7 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=load_joint_state_broadcaster,
-                on_exit=[load_joint_effort_controller],
+                on_exit=[load_joint_position_controller],
             )
         ),
         gazebo,
