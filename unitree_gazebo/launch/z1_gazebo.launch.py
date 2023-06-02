@@ -16,10 +16,10 @@ import xacro
 
 def generate_launch_description():
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
-    walker_sim_path = get_package_share_path('walker_sim')
+    unitree_gazebo_path = get_package_share_path('unitree_gazebo')
 
-    #this part helps deal with the 'model://' URI not found
-    install_dir = get_package_prefix('walker_sim')
+    # IMPORTANT: this part helps deal with the 'model://' URI not found
+    install_dir = get_package_prefix('unitree_gazebo')
 
     if 'GAZEBO_MODEL_PATH' in os.environ:
         os.environ['GAZEBO_MODEL_PATH'] =  os.environ['GAZEBO_MODEL_PATH'] + ':' + install_dir + '/share'
@@ -31,13 +31,13 @@ def generate_launch_description():
     else:
         os.environ['GAZEBO_PLUGIN_PATH'] = install_dir + '/lib'
 
-    default_model_path = walker_sim_path / 'robots/simple_walker.urdf'
+    default_model_path = unitree_gazebo_path / 'urdf/z1.urdf'
     model_arg = DeclareLaunchArgument(name='model', default_value=str(default_model_path), description="absolute path to robot urdf file")
 
     robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
                                        value_type=str)
         
-    params =  {"robot_description": robot_description} #params for robot_state_publisher_node
+    params =  {"robot_description": robot_description} # params for robot_state_publisher_node
     robot_state_publisher_node = Node(package = 'robot_state_publisher', 
                                       executable='robot_state_publisher', 
                                        parameters=[params],
@@ -50,17 +50,6 @@ def generate_launch_description():
         condition=UnlessCondition(LaunchConfiguration('gui'))
     )
 
-    load_joint_state_broadcaster = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-             'joint_state_broadcaster'],
-        output='screen'
-    )
-
-    load_joint_effort_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_effort_controller'],
-        output='screen'
-    )
-
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -70,7 +59,7 @@ def generate_launch_description():
 
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'bipedal_walker',
+                                   '-entity', 'z1_arm',
                                    '-x', '0.0',
                                    '-y', '0.0',
                                    '-z', '0.0',
@@ -80,18 +69,6 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(name='gui', default_value='True',
                                             description='Flag to enable joint_state_publisher_gui'),
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=spawn_entity,
-                on_exit=[load_joint_state_broadcaster],
-            )
-        ),
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=load_joint_state_broadcaster,
-                on_exit=[load_joint_effort_controller],
-            )
-        ),
         gazebo,
         model_arg,
         joint_state_publisher_node,
