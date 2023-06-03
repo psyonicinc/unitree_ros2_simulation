@@ -10,25 +10,25 @@ class EffortExample: public rclcpp::Node{
     public:
         EffortExample() : Node("effort_control_example") 
         {
-            pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/joint_effort_controller/commands", 10);   
+            pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/joint_position_controllers/commands", 10);   
             timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&EffortExample::timer_callback, this));
             force_flag_ = true;
-            rest_ = std::vector<double>(6, 0.0);
-            force_ = std::vector<double>(6, 2.5);
+            pos1_ = std::vector<double>(6, 0.0);
+            pos2_ = std::vector<double>{0.0, 0.53, -1.45, 0.44, 0.16, 0.47};
             msg_ = std::make_shared<std_msgs::msg::Float64MultiArray>();
         }
 
         void timer_callback(){
-            if (force_flag_) msg_->data = force_;
-            else msg_->data = rest_;
+            if (force_flag_) msg_->data = pos2_;
+            else msg_->data = pos1_;
 
             pub_->publish(*msg_);
-            force_flag_ = !force_flag_; 
+            //force_flag_ = !force_flag_; 
         }
 
     private:
-        std::vector<double> rest_;
-        std::vector<double> force_;
+        std::vector<double> pos1_;
+        std::vector<double> pos2_;
         std::shared_ptr<std_msgs::msg::Float64MultiArray> msg_;
         bool force_flag_;
         rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_;

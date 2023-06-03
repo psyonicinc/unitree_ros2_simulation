@@ -25,9 +25,13 @@ install(
 add_executable(effort_example src/effort_control_example.cpp)
 ament_target_dependencies(effort_example rclcpp std_msgs)
 
+add_executable(position_example src/position_control_example.cpp)
+ament_target_dependencies(position_example rclcpp std_msgs)
+
 # C++ nodes install
 install(TARGETS
   effort_example
+  position_example
   DESTINATION lib/${PROJECT_NAME}
 )
 

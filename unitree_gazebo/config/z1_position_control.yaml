@@ -3,7 +3,7 @@ controller_manager:
     update_rate: 1000
     
     joint_position_controllers:
-      type: position_controllers/JointGroupPositionController
+      type: joint_trajectory_controller/JointTrajectoryController
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -17,6 +17,8 @@ joint_position_controllers:
       - joint4
       - joint5
       - joint6
+    
+    interface_name: position
     
     command_interfaces:
       - position
