@@ -2,13 +2,13 @@ controller_manager:
   ros__parameters:
     update_rate: 1000
     
-    joint_position_controller:
-      type: position_controller/JointGroupPositionController
+    joint_position_controllers:
+      type: position_controllers/JointGroupPositionController
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-joint_position_controller:
+joint_position_controllers:
   ros__parameters:
     joints:
       - joint1

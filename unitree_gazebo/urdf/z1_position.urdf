@@ -337,7 +337,7 @@
     </joint>
 
     <joint name="joint5">
-      <command_interface name="effort">
+      <command_interface name="position">
         <param name="min">-30</param>
         <param name="max">30</param>
       </command_interface>
@@ -347,7 +347,7 @@
     </joint>
 
     <joint name="joint6">
-      <command_interface name="effort">
+      <command_interface name="position">
         <param name="min">-30</param>
         <param name="max">30</param>
       </command_interface>
