@@ -11,10 +11,10 @@ class EffortExample: public rclcpp::Node{
         EffortExample() : Node("effort_control_example") 
         {
             pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("joint_effort_controller/commands", 10);   
-            timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&EffortExample::timer_callback, this));
+            timer_ = this->create_wall_timer(std::chrono::milliseconds(1000), std::bind(&EffortExample::timer_callback, this));
             force_flag_ = true;
             rest_ = std::vector<double>(6, 0.0);
-            force_ = {0.0, 0.0, -10.5, 0.0, 0.0, 0.0};
+            force_ = {0.0, 0.0, -8.5, 0.0, 0.0, 0.0};
             
         }
 
